@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Contacts2015Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="contact">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" MaxLength="200" />
+    <Property Name="lastName" Type="nvarchar" MaxLength="200" />
+    <Property Name="phoneNumber" Type="nvarchar" MaxLength="50" />
+    <Property Name="streetName" Type="nvarchar" MaxLength="255" />
+    <Property Name="city" Type="nvarchar" MaxLength="255" />
+    <Property Name="province" Type="nvarchar" MaxLength="255" />
+    <Property Name="postalCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="country" Type="nvarchar" MaxLength="255" />
+    <Property Name="notes" Type="nvarchar(max)" />
+    <Property Name="status" Type="int" />
+    <Property Name="userid" Type="int" />
+    <Property Name="created" Type="datetime" />
+    <Property Name="modified" Type="datetime" />
+  </EntityType>
+  <EntityType Name="country">
+    <Key>
+      <PropertyRef Name="code" />
+    </Key>
+    <Property Name="code" Type="nchar" MaxLength="2" Nullable="false" />
+    <Property Name="name_en" Type="nvarchar" MaxLength="150" />
+    <Property Name="name_fr" Type="nvarchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="forgotPass">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="150" />
+    <Property Name="tempPassword" Type="nvarchar" MaxLength="100" />
+    <Property Name="status" Type="int" />
+    <Property Name="modified" Type="datetime" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <EntityType Name="user">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" MaxLength="255" />
+    <Property Name="lastName" Type="nvarchar" MaxLength="255" />
+    <Property Name="email" Type="nvarchar" MaxLength="150" />
+    <Property Name="password" Type="nvarchar" MaxLength="100" />
+    <Property Name="usertype" Type="int" />
+    <Property Name="active" Type="int" />
+    <Property Name="modified" Type="datetime" />
+    <Property Name="created" Type="datetime" />
+  </EntityType>
+  <EntityContainer Name="Contacts2015ModelStoreContainer">
+    <EntitySet Name="contact" EntityType="Self.contact" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="country" EntityType="Self.country" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="forgotPass" EntityType="Self.forgotPass" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user" EntityType="Self.user" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

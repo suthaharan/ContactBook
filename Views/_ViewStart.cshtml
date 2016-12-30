@@ -1,0 +1,24 @@
+﻿@{
+    var controller = HttpContext.Current.Request.RequestContext.RouteData.Values["Controller"].ToString();
+
+    string layout = "";
+    switch (controller)
+    {
+        case "Home":
+      
+        layout = "~/Views/Shared/_BeforeLogin.cshtml";
+        break;
+
+        case "Users":
+        layout = "~/Views/Shared/_BeforeLogin.cshtml";
+        break;
+
+
+        default:
+        layout = "~/Views/Shared/_AfterLogin.cshtml";
+        break;
+            
+    }
+
+    Layout = layout;
+}

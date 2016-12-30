@@ -1,0 +1,293 @@
+﻿@model IEnumerable<Contact2015.Models.ViewModels.vmContact>
+
+@{
+    ViewBag.Title = "Contacts";
+    Layout = "~/Views/Shared/_AfterLogin.cshtml";
+}
+@section stylecontainer{
+
+}
+<!--main content start-->
+<h3><i class="fa fa-database"></i> Manage Address Book</h3>
+@if (TempData.ContainsKey("Success"))
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>@TempData["MessageTitle"].ToString()!</strong> @TempData["Message"].ToString()
+    </div>
+}
+<!-- BASIC FORM ELELEMNTS -->
+<div class="row mt">
+    <div class="col-lg-8">
+        <div class="form-panel">
+            <h4 class="mb"><i class="fa fa-angle-right"></i> Add Contact Details</h4>
+@using (Html.BeginForm("manage", "contact", FormMethod.Post, new { @class = "form-horizontal style-form"}))
+{
+    @Html.AntiForgeryToken()
+
+    if (!Html.ViewData.ModelState.IsValid)
+    {
+        <div class="alert adjusted alert-danger fade in">
+            <strong>Error!</strong>
+            @Html.ValidationSummary(false)
+        </div>
+    }
+
+    if (ViewBag.Success == 1)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>@ViewBag.MessageTitle! </strong> @ViewBag.Message
+        </div>
+    }
+    
+    if (ViewBag.Success == 0)
+    {     
+         <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtfirst">First name</label>
+                    <div class="col-md-6">
+                        <input id="txtfirst" name="txtfirst" type="text" placeholder="" class="form-control input-md" required="" value="@ViewBag.firstName">
+                        <span class="help-block">Enter first name</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtlast">Last name</label>
+                    <div class="col-md-6">
+                        <input id="txtlast" name="txtlast" type="text" placeholder="" class="form-control input-md" required="" value="@ViewBag.lastName">
+                        <span class="help-block">Enter last name</span>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtphone">Phone number</label>
+                    <div class="col-md-6">
+                        <input id="txtphone" name="txtphone" type="text" placeholder="" class="form-control input-md" required="required" value="@ViewBag.phoneNumber">
+                        <span class="help-block">Enter phone number</span>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtstreet">Street name</label>
+                    <div class="col-md-6">
+                        <input id="txtstreet" name="txtstreet" type="text" placeholder="" class="form-control input-md" value="@ViewBag.firstName">
+                        <span class="help-block">Address, street name</span>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtcity">City</label>
+                    <div class="col-md-6">
+                        <input id="txtcity" name="txtcity" type="text" placeholder="" class="form-control input-md" value="@ViewBag.firstName">
+                        <span class="help-block">Enter city name</span>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtprovince">Province</label>
+                    <div class="col-md-6">
+                        <input id="txtprovince" name="txtprovince" type="text" placeholder="" class="form-control input-md" value="@ViewBag.firstName">
+                        <span class="help-block">Name of the province</span>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtpostal">Postal code</label>
+                    <div class="col-md-6">
+                        <input id="txtpostal" name="txtpostal" type="text" placeholder="" class="form-control input-md" value="@ViewBag.firstName">
+                        <span class="help-block">Enter postal code</span>
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="selcountry">Select country</label>
+                    <div class="col-md-6">
+                        <select id="selcountry" name="selcountry" class="form-control">
+                            <option value="Canada" selected>Canada</option>
+                            <option value="USA">USA</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Australia">Australia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtnotes">Notes</label>
+                    <div class="col-md-6">
+                        @Html.TextArea("editor", new { @class = "ckeditor form-control", @id = "txtnotes", @Value= ViewBag.notes })
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="btnAddContact"></label>
+                    <div class="col-md-6">
+                        <button id="btnAddContact" name="btnAddContact" class="btn btn-primary">Add contact</button>
+                    </div>
+                </div>
+        
+        
+        
+        
+    }else{
+        
+    
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtfirst">First name</label>
+                    <div class="col-md-6">
+                        <input id="txtfirst" name="txtfirst" type="text" placeholder="" class="form-control input-md" required="">
+                        <span class="help-block">Enter first name</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtlast">Last name</label>
+                    <div class="col-md-6">
+                        <input id="txtlast" name="txtlast" type="text" placeholder="" class="form-control input-md" required="">
+                        <span class="help-block">Enter last name</span>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtphone">Phone number</label>
+                    <div class="col-md-6">
+                        <input id="txtphone" name="txtphone" type="text" placeholder="" class="form-control input-md">
+                        <span class="help-block">Enter phone number</span>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtstreet">Street name</label>
+                    <div class="col-md-6">
+                        <input id="txtstreet" name="txtstreet" type="text" placeholder="" class="form-control input-md">
+                        <span class="help-block">Address, street name</span>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtcity">City</label>
+                    <div class="col-md-6">
+                        <input id="txtcity" name="txtcity" type="text" placeholder="" class="form-control input-md">
+                        <span class="help-block">Enter city name</span>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtprovince">Province</label>
+                    <div class="col-md-6">
+                        <input id="txtprovince" name="txtprovince" type="text" placeholder="" class="form-control input-md">
+                        <span class="help-block">Name of the province</span>
+                    </div>
+                </div>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtpostal">Postal code</label>
+                    <div class="col-md-6">
+                        <input id="txtpostal" name="txtpostal" type="text" placeholder="" class="form-control input-md">
+                        <span class="help-block">Enter postal code</span>
+                    </div>
+                </div>
+
+                <!-- Select Basic -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="selcountry">Select country</label>
+                    <div class="col-md-6">
+                        <select id="selcountry" name="selcountry" class="form-control">
+                            <option value="Canada" selected>Canada</option>
+                            <option value="USA">USA</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                            <option value="Australia">Australia</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Textarea -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="txtnotes">Notes</label>
+                    <div class="col-md-6">
+                        @Html.TextArea("notes", new { @class = "ckeditor form-control", @id = "notes" })
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="btnAddContact"></label>
+                    <div class="col-md-6">
+                        <button id="btnAddContact" name="btnAddContact" class="btn btn-primary">Add contact</button>
+                    </div>
+                </div>
+
+    
+    }
+} 
+        </div>
+    </div><!-- col-lg-12-->
+</div><!-- /row -->
+
+@if(ViewBag.RSListCount != 0){
+<div class="row mt">
+    <div class="col-md-12">
+        <div class="content-panel">
+            <table class="table table-striped table-advance table-hover">
+                <h4><i class="fa fa-angle-right"></i> Contact list</h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th><i class="fa fa-bullhorn"></i> First name</th>
+                        <th class="hidden-phone"><i class="fa fa-user"></i> Last name</th>
+                        <th><i class="fa fa-phone"></i> Phone </th>
+                        <th><i class="fa fa-globe"></i> Country </th>
+                        <th><i class=" fa fa-edit"></i> Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td><a href="basic_table.html#">@item.txtfirst</a></td>
+                        <td class="hidden-phone">@item.txtlast</td>
+                        <td>@item.txtphone</td>
+                        <td>@item.selcountry</td>
+                        <td>
+                            <a href="@Url.Action("edit", "contact", new { id = item.id })" class="btn btn-primary btn-xs">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="@Url.Action("delete", "contact", new { id = item.id })" class="btn btn-danger btn-xs">
+                                <i class="fa fa-trash-o "></i>
+                            </a></td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div><!-- /content-panel -->
+    </div><!-- /col-md-12 -->
+</div><!-- /row -->
+}
+
+
+@section scriptsContainer{
+    <script src="~/assets/ckeditor/ckeditor.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var editor = CKEDITOR.instances["notes"];
+        if (editor) { editor.destroy(true); }
+        CKEDITOR.replace("notes", {
+            enterMode: CKEDITOR.ENTER_BR,
+        });
+
+        $('input[type=submit]').bind('click', function () {
+            CKEDITOR.instances.notes.updateElement();
+        });
+    </script>
+}

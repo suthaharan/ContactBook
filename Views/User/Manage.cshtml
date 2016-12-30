@@ -1,0 +1,197 @@
+﻿@model IEnumerable<Contact2015.Models.ViewModels.vmUser>
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_AfterLogin.cshtml";
+}
+
+<!--main content start-->
+<h3><i class="fa fa-group"></i> Manage Users</h3>
+@if (TempData.ContainsKey("Success"))
+{
+    <div class="alert alert-success alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>@TempData["MessageTitle"].ToString()!</strong> @TempData["Message"].ToString()
+    </div>
+}
+<!-- BASIC FORM ELELEMNTS -->
+<div class="row mt">
+    <div class="col-lg-8">
+        <div class="form-panel">
+            <h4 class="mb"><i class="fa fa-angle-right"></i> Add User Details</h4>
+
+
+@using (Html.BeginForm("manage", "user", FormMethod.Post, new { @class = "form-horizontal style-form"}))
+{
+    @Html.AntiForgeryToken()
+
+    
+    if (!Html.ViewData.ModelState.IsValid)
+    {
+        <div class="alert adjusted alert-danger fade in">
+            <strong>Error!</strong>
+            @Html.ValidationSummary(false)
+        </div>
+    }
+
+    if (ViewBag.Success == 1)
+    {
+        <div class="alert alert-success alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <strong>@ViewBag.MessageTitle! </strong> @ViewBag.Message
+        </div>
+    }
+                                               
+
+    if (ViewBag.Success == 0)
+    { 
+    
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="useremail">User email</label>
+                    <div class="col-md-6">
+                        <input id="useremail" name="useremail" type="email" placeholder="" class="form-control input-md" required="required" maxlength="255" value="@ViewBag.useremail">
+                        <span class="help-block">Enter user email address</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="userfirst">First name</label>
+                    <div class="col-md-6">
+                        <input id="userfirst" name="userfirst" type="text" placeholder="" class="form-control input-md" required="required" maxlength="255" value="@ViewBag.userfirst">
+                        <span class="help-block">Enter first name</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="userlast">Last name</label>
+                    <div class="col-md-6">
+                        <input id="userlast" name="userlast" type="text" placeholder="" class="form-control input-md" required="required" maxlength="255" value="@ViewBag.userlast">
+                        <span class="help-block">Enter last name</span>
+                    </div>
+                </div>
+    
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="userpass">Password</label>
+                    <div class="col-md-6">
+                        <input id="userpass" name="userpass" type="password" placeholder="" class="form-control input-md" pattern=".{8,}">
+                        <span class="help-block">Enter user password (Min 8 chars)</span>
+                    </div>
+                </div>
+                   
+                <div class="form-group">
+                    <label class="col-md-4 control-label" for="selusertype">Select user type</label>
+                  <div class="col-md-5">
+                      <select id="selusertype" name="selusertype" class="form-control">
+                          <option value="1">Admin</option>
+                          <option value="2">General user</option>
+                      </select>
+                  </div>
+                </div>    
+
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="btnAddUser"></label>
+                    <div class="col-md-6">
+                        <button id="btnAddUser" name="btnAddUser" class="btn btn-primary">Add user</button>
+                    </div>
+                </div>    
+    }
+    else
+    {
+                   <div class="form-group">
+                    <label class="col-md-2 control-label" for="useremail">User email</label>
+                    <div class="col-md-6">
+                        <input id="useremail" name="useremail" type="email" placeholder="" class="form-control input-md" required="" maxlength="255">
+                        <span class="help-block">Enter user email address</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="userfirst">First name</label>
+                    <div class="col-md-6">
+                        <input id="userfirst" name="userfirst" type="text" placeholder="" class="form-control input-md" required="" maxlength="255">
+                        <span class="help-block">Enter first name</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="userlast">Last name</label>
+                    <div class="col-md-6">
+                        <input id="userlast" name="userlast" type="text" placeholder="" class="form-control input-md" required="" maxlength="255">
+                        <span class="help-block">Enter last name</span>
+                    </div>
+                </div>
+    
+                    <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="userpass">Password</label>
+                    <div class="col-md-6">
+                        <input id="userpass" name="userpass" type="password" placeholder="" class="form-control input-md" pattern=".{8,}">
+                        <span class="help-block">Enter user password (Min 8 chars)</span>
+                    </div>
+                </div>
+                   
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="selusertype">Select user type</label>
+                  <div class="col-md-6">
+                      <select id="selusertype" name="selusertype" class="form-control">
+                          <option value="1">Admin</option>
+                          <option value="2" selected>General user</option>
+                      </select>
+                  </div>
+                </div>    
+                <!-- Button -->
+                <div class="form-group">
+                    <label class="col-md-2 control-label" for="btnAddUser"></label>
+                    <div class="col-md-6">
+                        <button id="btnAddUser" name="btnAddUser" class="btn btn-primary">Add user</button>
+                    </div>
+                </div>
+    }
+
+
+}
+        </div>
+    </div><!-- col-lg-12-->
+</div><!-- /row -->
+
+
+@if(ViewBag.RSListCount != 0){
+    
+<div class="row mt">
+    <div class="col-md-12">
+        <div class="content-panel">
+            <table class="table table-striped table-advance table-hover">
+                <h4><i class="fa fa-angle-right"></i> User list</h4>
+                <hr>
+                <thead>
+                    <tr>
+                        <th><i class="fa fa-bullhorn"></i> First name</th>
+                        <th class="hidden-phone"><i class="fa fa-question-circle"></i> Last name</th>
+                        <th><i class="fa fa-bookmark"></i> Email</th>
+                        <th><i class=" fa fa-edit"></i> Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                { 
+                    <tr>
+                        <td><a href="basic_table.html#">@item.userfirst</a></td>
+                        <td class="hidden-phone">@item.userlast</td>
+                        <td>@item.useremail</td>
+                        <td>
+                            <a href="@Url.Action("edit", "user", new { id = item.id })" class="btn btn-primary btn-xs">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a href="@Url.Action("delete", "user", new { id = item.id })" class="btn btn-danger btn-xs">
+                                <i class="fa fa-trash-o "></i>
+                            </a>
+                        </td>
+                    </tr>
+                 }
+                </tbody>
+            </table>
+        </div><!-- /content-panel -->
+    </div><!-- /col-md-12 -->
+</div><!-- /row -->
+}

@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Contact2015.Models.ViewModels.vmLogin>
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_BeforeLogin.cshtml";
+}
+
+
+<div id="login-page">
+    <div class="container">
+@using (Html.BeginForm("login", "user", FormMethod.Post, new { @class = "form-login"}))
+{
+    @Html.AntiForgeryToken()
+        
+            <h2 class="form-login-heading">sign in now</h2>
+            <div class="login-wrap">
+
+                <div class="siteMessage">
+                    @if (!Html.ViewData.ModelState.IsValid)
+                    {
+                        <div class="alert adjusted alert-danger fade in">
+                            <strong>Error!</strong>
+                            @Html.ValidationSummary(false)
+                        </div>
+                    }
+                    @if (!String.IsNullOrEmpty(ViewBag.SuccessMessage))
+                    {
+                        <div class="alert adjusted alert-success fade in">
+                            <strong>Message</strong>
+                            @ViewBag.SuccessMessage
+                        </div>
+                    }
+                </div>
+
+                <input type="email" name="txtemail" class="form-control" placeholder="User ID" autofocus required="required">
+                <br>
+                <input type="password" name="txtpassword" class="form-control" placeholder="Password" required="required">
+                <label class="checkbox">
+                    <span class="pull-right">
+                        <a data-toggle="modal" href="~/user/forgotpassword"> Forgot Password?</a>
+
+                    </span>
+                </label>
+                <button class="btn btn-theme btn-block" type="submit"><i class="fa fa-lock"></i> SIGN IN</button>
+                <hr>
+
+                <div class="registration">
+                    Don't have an account yet?<br />
+                    <a class="" href="mailto:admin@gmail.com">
+                        Contact Admin
+                    </a>
+                </div>
+
+            </div>
+}
+
+    </div>
+</div>

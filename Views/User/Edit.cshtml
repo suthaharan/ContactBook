@@ -1,0 +1,91 @@
+﻿@model Contact2015.Models.ViewModels.vmUser
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_AfterLogin.cshtml";
+}
+
+<!--main content start-->
+<h3><i class="fa fa-group"></i> Edit User</h3>
+
+<!-- BASIC FORM ELELEMNTS -->
+<div class="row mt">
+    <div class="col-lg-8">
+        <div class="form-panel">
+            <h4 class="mb"><i class="fa fa-angle-right"></i> Edit User Details</h4>
+            @using (Html.BeginForm("edit", "user", FormMethod.Post, new { @class = "form-horizontal style-form" }))
+            {
+                @Html.AntiForgeryToken()
+
+                if (!Html.ViewData.ModelState.IsValid)
+                {
+                    <div class="alert adjusted alert-danger fade in">
+                        <strong>Error!</strong>
+                        @Html.ValidationSummary(false)
+                    </div>
+                }
+
+                if (ViewBag.Success == 1)
+                {
+                    <div class="alert alert-success alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                        <strong>@ViewBag.MessageTitle! </strong> @ViewBag.Message
+                    </div>
+                }
+        
+                
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="useremail">User email</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(Model => Model.useremail, new { @class = "form-control input-md", placeholder = "Email", maxlength = "255" })
+                            <span class="help-block">Enter user email address</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="userfirst">First name</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(Model => Model.userfirst, new { @class = "form-control input-md", placeholder = "First name", maxlength = "255" })
+                            <span class="help-block">Enter first name</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="userlast">Last name</label>
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(Model => Model.userlast, new { @class = "form-control input-md", placeholder = "Last name", maxlength = "30" })
+                            <span class="help-block">Enter last name</span>
+                        </div>
+                    </div>
+
+                <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="userpass">Password</label>
+                        <div class="col-md-6">
+                            <input id="userpass" name="userpass" type="password" placeholder="" class="form-control input-md" pattern=".{8,}">
+                            <span class="help-block">Password (Min 8 chars). Leave it blank if password update is not necessary.</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="selusertype">Select user type</label>
+                        <div class="col-md-6">
+                            <select id="selusertype" name="selusertype" class="form-control">
+                                <option value="1">Admin</option>
+                                <option value="2" selected>General user</option>
+                            </select>
+                        </div>
+                    </div>
+
+                <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-2 control-label" for="btnSaveUser"></label>
+                        <div class="col-md-6">
+                            @Html.HiddenFor(Model => Model.id)
+                            <button id="btnSaveUser" name="btnSaveUser" class="btn btn-primary">Save user</button>
+                        </div>
+                    </div>
+
+            }
+        </div>
+    </div><!-- col-lg-12-->
+</div><!-- /row -->

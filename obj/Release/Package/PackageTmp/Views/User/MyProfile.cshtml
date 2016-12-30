@@ -1,0 +1,87 @@
+﻿@model Contact2015.Models.ViewModels.vmUser
+@{
+    ViewBag.Title = "MyProfile";
+    Layout = "~/Views/Shared/_AfterLogin.cshtml";
+}
+
+<!--main content start-->
+        <h3><i class="fa fa-cogs"></i> My Profile</h3>
+
+        <!-- BASIC FORM ELELEMNTS -->
+        <div class="row mt">
+            <div class="col-lg-8">
+                <div class="form-panel">
+                    <h4 class="mb"><i class="fa fa-angle-right"></i> Manage Details</h4>
+                    @using (Html.BeginForm("myprofile", "user", FormMethod.Post, new { @class = "form-horizontal style-form" }))
+                                {
+                        @Html.AntiForgeryToken()
+
+                        <div class="siteMessage">
+                            @if (!Html.ViewData.ModelState.IsValid)
+                                        {
+                                <div class="alert adjusted alert-danger fade in">
+                                    <strong>Error!</strong>
+                                    @Html.ValidationSummary(false)
+                                </div>
+                                        }
+                            @if (!String.IsNullOrEmpty(ViewBag.SuccessMessage))
+                                        {
+                                <div class="alert adjusted alert-success fade in">
+                                    <strong>Message</strong>
+                                    @ViewBag.SuccessMessage
+                                </div>
+                                        }
+                        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="txtfirst">User email</label>
+            <div class="col-md-6">
+                @Html.TextBoxFor(Model => Model.useremail, new {  @type = "email", @class = "form-control input-md", maxlength = "255" })
+                <span class="help-block">Enter user email address</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="txtfirst">First name</label>
+            <div class="col-md-6">
+                @Html.TextBoxFor(Model => Model.userfirst, new { @class = "form-control input-md", maxlength = "255" })
+                <span class="help-block">Enter first name</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="txtlast">Last name</label>
+            <div class="col-md-6">
+                @Html.TextBoxFor(Model => Model.userlast, new { @class = "form-control input-md", maxlength = "255" })
+                <span class="help-block">Enter last name</span>
+            </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="txtphone">Password</label>
+            <div class="col-md-6">
+                <input id="userpass" name="userpass" type="password" placeholder="" class="form-control input-md" pattern=".{8,}">
+                <span class="help-block">Password (Min 8 chars). Enter new pass word to change it</span>
+            </div>
+        </div>
+
+
+        <!-- Button -->
+        <div class="form-group">
+            <label class="col-md-2 control-label" for="btnSaveDetail"></label>
+            <div class="col-md-6">@Html.HiddenFor(Model => Model.id)
+                <button id="btnSaveDetail" name="btnSaveDetail" class="btn btn-primary">Save detail</button>
+            </div>
+        </div>
+
+                                }
+            </div>
+            </div><!-- col-lg-12-->
+        </div><!-- /row -->
+@section scriptsContainer{
+
+    <script type="text/javascript">
+
+    </script>
+}
